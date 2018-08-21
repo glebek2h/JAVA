@@ -33,7 +33,9 @@ public class GaussMatrix
         {
             for (int j = 0; j < m; j++)
             {
+                if(matrix[i][j] < 0)
                 System.out.print(matrix[i][j] + " ");
+                else System.out.print(matrix[i][j] + "  ");
             }
             System.out.println();
         }
@@ -92,17 +94,20 @@ public class GaussMatrix
 
     public void methodGaussa()
     {
-        int k = checkOne();
+       // ищет строку с первым элементом единицей для наилучшего применения алгоритма
+       int k = checkOne();
         if (k != 99)
             swaprows(k, 0);
+
         printMatrix();
+
         int count = 0;
         for (int t = 1; t < n; t++)
         {
             for (int rows = t; rows < n; rows++)
             {
                 double ratio = matrix[rows][count] / matrix[count][count];
-                for (int columns = count; columns <= n; columns++)
+                for (int columns = count; columns < m; columns++)
                 {
                     matrix[rows][columns] -= matrix[count][columns] * ratio;
                 }
@@ -110,6 +115,10 @@ public class GaussMatrix
             }
             count++;
         }
+        /*
+        ----
+        --Сокращает каждую строчку после приведения к ступенчатому виду--
+        ----
         int u = 0;
         for (int i = 0; i < n; i++)
         {
@@ -121,33 +130,39 @@ public class GaussMatrix
             u++;
         }
         printMatrix();
-        System.out.println("Answer:");
+        */
+
         double[] answer = new double[m - 1];
         double chislitel;
         for (int i = 0; i < m - 1; i++)
             answer[i] = 0;
         int eshkere = m - 2;
-        for (int i = n - 1; i >= 0 ; i--)
+        if(eshkere+1==n)
         {
-            if (eshkere == m - 2)
+            System.out.println("Answer:");
+            for (int i = n - 1; i >= 0 && eshkere >= 0; i--)
             {
-                answer[eshkere] = matrix[i][m - 1] / matrix[i][m - 2];
-                eshkere--;
-            } else
-            {
-                chislitel = matrix[i][m - 1];
-                for (int j = m - 2; j >= 0; j--)
+                if (eshkere == m - 2)
                 {
-                    chislitel -= matrix[i][j] * answer[j];
+                    answer[eshkere] = matrix[i][m - 1] / matrix[i][m - 2];
+                    eshkere--;
+                } else
+                {
+                    chislitel = matrix[i][m - 1];
+                    for (int j = m - 2; j >= 0; j--)
+                    {
+                        chislitel -= matrix[i][j] * answer[j];
+                    }
+                    answer[eshkere] = chislitel / matrix[i][eshkere];
+                    eshkere--;
                 }
-                answer[eshkere] = chislitel / matrix[i][eshkere];
-                eshkere--;
+            }
+            for (int i = 0; i <= m - 2; i++)
+            {
+                System.out.print("x" + i + " = " + answer[i] + " ; ");
             }
         }
-        for (int i = 0; i <= m - 2; i++)
-        {
-            System.out.print("x"+i+" = "+answer[i]+" ; ");
-        }
+
     }
 
         public void methodGaussaJordana ()
@@ -176,28 +191,91 @@ public class GaussMatrix
             {
                 matrix[n - 1][j] /= p;
             }
+
             printMatrix();
 
         }
 
+    public void LUmatrixs() // 1 0 0
+                                     // 0 1 0
+                                     // 0 0 1
+    {
+
+        int count = 0, a = 0;
+        GaussMatrix gaussMatrix = new GaussMatrix(n,m*2);
+        for (int rows = 0; rows < n; rows++)
+        {
+            count = 0;
+            for (int columns = 0 ; columns < m * 2 ; columns++)
+            {
+                if(columns < m)
+                gaussMatrix.matrix[rows][columns]=matrix[rows][columns];
+                else
+                {
+                    if(count == a)
+                    {
+                        gaussMatrix.matrix[rows][columns] = 1;
+
+                    }
+                    else
+                    {
+                        gaussMatrix.matrix[rows][columns] = 0;
+                    }
+                    count++;
+
+                }
+            }
+            a++;
+        }
+        System.out.println("Добавляем единичную матрицу:");
+        gaussMatrix.printMatrix();
+        gaussMatrix.methodGaussa();
+
+        GaussMatrix Umatrix = new GaussMatrix(n,m);
+        GaussMatrix L0matrix = new GaussMatrix(n,m);
+        for (int i = 0,rows = 0; i < n ; i++ ,rows ++)
+        {
+            for (int j = 0, columns = 0; j < m * 2; j++)
+            {
+                if (j < m)
+                    Umatrix.matrix[i][j] = gaussMatrix.matrix[i][j];
+                else
+                {
+                    L0matrix.matrix[rows][columns] = gaussMatrix.matrix[i][j];
+                    columns++;
+                }
+            }
+        }
+        System.out.println("U-matrix :");
+        Umatrix.printMatrix();
+
+        System.out.println("L0-matrix(обратная к L- матрице,которую ещё нужно найти) :");
+        L0matrix.printMatrix();
+
+    }
+
 
     public static void main(String[] args)
     {
-        GaussMatrix gaussMatrix = new GaussMatrix(4, 5);
+        GaussMatrix gaussMatrix = new GaussMatrix(3, 3);
         int[] arr = { 2, 5, 4, 1, 20,
                       1, 3, 2, 1, 11,
                       2, 10,9, 7, 40,
                       3, 8, 9, 2, 37 };
-        int[] arr2 = {   8, 7, 3,  18
-                        -7,-4,-4, -11
-                        -6, 5,-4 ,-15  };
-        gaussMatrix.setMatrix(arr);
+        int[] arr2 = {  1, 2, 1,
+                        2, 1, 1,
+                        1,-1, 2  };
+        gaussMatrix.setMatrix(arr2);
+
         System.out.println("matrix:");
         gaussMatrix.printMatrix();
-        System.out.println("methodGaussa:");
-        gaussMatrix.methodGaussa();
-        /*System.out.println("methodGaussaJordana:");
-        gaussMatrix.methodGaussaJordana();*/
+
+        //System.out.println("methodGaussa:");
+        //gaussMatrix.methodGaussa();
+
+       gaussMatrix.LUmatrixs();
+        //System.out.println("methodGaussaJordana:");
+        //gaussMatrix.methodGaussaJordana();
 
 
     }
