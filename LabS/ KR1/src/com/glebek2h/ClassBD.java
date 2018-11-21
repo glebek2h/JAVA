@@ -22,9 +22,9 @@ public class ClassBD
             @Override
             public String toString()
             {
-                String string = new String();
-                map.forEach((k, v) -> System.out.println("key: " + k + " value:" + v));
-                return string;
+                StringBuilder string = new StringBuilder();
+                map.forEach((k, v) -> string.append("key: ").append(k).append(" value:").append(v));//System.out.println("key: " + k + " value:" + v)
+                return string.toString();
             }
         };
     }
