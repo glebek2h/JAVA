@@ -18,13 +18,13 @@ public class Student
     @Override
     public String toString()
     {
-        return "com.glebek2h.Student{" +
+        return "{" +
                 "surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 ", averageMark=" + averageMark +
                 ", id=" + id +
-                '}';
+                '}'+'\n';
     }
 
     public double getId()

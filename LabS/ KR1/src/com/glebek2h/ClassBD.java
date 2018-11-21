@@ -15,7 +15,16 @@ public class ClassBD
 
     public ClassBD()
     {
-        map = new HashMap<Double,Student>();
+        map = new HashMap<Double,Student>()
+        {
+            @Override
+            public String toString()
+            {
+                String string = new String();
+                map.forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
+                return string;
+            }
+        };
     }
 
     @Override
