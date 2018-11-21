@@ -15,13 +15,13 @@ public class ClassBD
 
     public ClassBD()
     {
-        map = new HashMap<Double,Student>()
+        map = new HashMap<Double, Student>()
         {
             @Override
             public String toString()
             {
                 String string = new String();
-                map.forEach((k,v) -> System.out.println("key: "+k+" value:"+v));
+                map.forEach((k, v) -> System.out.println("key: " + k + " value:" + v));
                 return string;
             }
         };
@@ -30,9 +30,7 @@ public class ClassBD
     @Override
     public String toString()
     {
-        return "com.glebek2h.ClassBD{" +
-                "map=" + map +
-                '}';
+        return map.toString();
     }
     public void read(String path) throws Exception
     {
