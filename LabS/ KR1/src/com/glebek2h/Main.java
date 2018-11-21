@@ -34,6 +34,9 @@ public class Main
             ClassBD classBD = new ClassBD();
             classBD.read("input.txt");
             System.out.println(classBD);
+            classBD.removeUncorrect();
+            System.out.println(":)");
+            System.out.println(classBD);
         } catch (Exception e)
         {
             System.out.println("Something wrong)");

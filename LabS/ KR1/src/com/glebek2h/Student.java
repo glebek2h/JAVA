@@ -1,6 +1,9 @@
 package com.glebek2h;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * KR1
@@ -26,7 +29,14 @@ public class Student
                 ", id=" + id +
                 '}'+'\n';
     }
-
+    public boolean isNeedDeleteStudent()
+    {
+        Pattern pattern = Pattern.compile("[^A-Z|a-z|А-Я|а-я]");
+        Matcher matcher = pattern.matcher(surname);
+        if(matcher.find())
+           return false;
+        return true;
+    }
     public double getId()
     {
         return id;

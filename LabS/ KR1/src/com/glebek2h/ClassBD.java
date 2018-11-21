@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
+
 /**
  * KR1
  * Created by fpm.kazachin on 21.11.2018 22:08
@@ -25,6 +27,14 @@ public class ClassBD
                 return string;
             }
         };
+    }
+    public void removeUncorrect()
+    {
+        for(Map.Entry entry: map.entrySet()) {
+            //получить ключ
+            if (map.get(entry.getKey()).isNeedDeleteStudent())
+                map.remove(entry.getKey());
+        }
     }
 
     @Override
