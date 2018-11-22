@@ -16,7 +16,7 @@ public class Student
     private String surname;
     private String name;
     private String patronymic;
-    private double averageMark;
+    private String averageMark;
     private String id;
 
     @Override
@@ -40,13 +40,18 @@ public class Student
         return surname;
     }
 
+    public String getAverageMark()
+    {
+        return averageMark;
+    }
+
     public Student readStudent(String path, Scanner scanner) throws Exception
     {
         String[] strings = scanner.nextLine().split(" ");
         surname = strings[0];
         name = strings[1];
         patronymic = strings[2];
-        averageMark = Double.parseDouble(strings[3]);
+        averageMark = strings[3];
         id = strings[4];
         return this;
     }

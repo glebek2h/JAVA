@@ -34,10 +34,16 @@ public class Main
             ClassBD classBD = new ClassBD();
             classBD.read("input.txt");
             System.out.println(classBD);
-            classBD.removeUncorrect();
-            System.out.println(":)");
+
+            classBD.removeUncorrectSurname();
+            System.out.println();
             System.out.println(classBD);
             classBD.write("rezult2.txt");
+
+            System.out.println();
+            classBD.removeUncorrectMark();
+            System.out.println(classBD);
+            classBD.write("rezult1.txt");
         } catch (Exception e)
         {
             System.out.println("Something wrong)");

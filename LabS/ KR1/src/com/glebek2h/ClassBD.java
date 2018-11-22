@@ -27,13 +27,23 @@ public class ClassBD
         };
     }
 
-    public void removeUncorrect()
+    public void removeUncorrectSurname()
     {
         Iterator<String> it = map.keySet().iterator();
         while (it.hasNext())
         {
             String key = it.next();
             if (map.get(key).getSurname().matches(".*[1-9].*"))
+                it.remove();
+        }
+    }
+    public void removeUncorrectMark()
+    {
+        Iterator<String> it = map.keySet().iterator();
+        while (it.hasNext())
+        {
+            String key = it.next();
+            if (map.get(key).getAverageMark().matches(".*[!/\"№;%:?*()_+].*"))
                 it.remove();
         }
     }
