@@ -1,0 +1,5 @@
+{surname='Асомчик', name='Кирилл', patronymic='Николаевич', averageMark=4, id=124}
+{surname='Казачинский', name='Глеб', patronymic='Всеволодович', averageMark=%:6, id=125}
+{surname='Гарост', name='Анастасия', patronymic='Анатольевна', averageMark=!/"№;8, id=126}
+{surname='Гарост', name='Анастасия', patronymic='Анатольевна', averageMark=8, id=127}
+{surname='Асомчик', name='Кирилл', patronymic='Николаевич', averageMark=?4, id=128}

@@ -1,0 +1,2 @@
+{surname='Асомчик', name='Кирилл', patronymic='Николаевич', averageMark=4, id=124}
+{surname='Гарост', name='Анастасия', patronymic='Анатольевна', averageMark=8, id=127}
