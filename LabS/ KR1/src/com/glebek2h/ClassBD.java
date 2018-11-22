@@ -1,6 +1,7 @@
 package com.glebek2h;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
 
 /**
@@ -14,7 +15,7 @@ public class ClassBD
 
     public ClassBD()
     {
-        map = new HashMap<String, Student>()
+        map = new HashMap<>()
         {
             @Override
             public String toString()
@@ -25,10 +26,12 @@ public class ClassBD
             }
         };
     }
+
     public void removeUncorrect()
     {
         Iterator<String> it = map.keySet().iterator();
-        while (it.hasNext()) {
+        while (it.hasNext())
+        {
             String key = it.next();
             if (map.get(key).getSurname().matches(".*[1-9].*"))
                 it.remove();
@@ -40,13 +43,27 @@ public class ClassBD
     {
         return map.toString();
     }
+
     public void read(String path) throws Exception
     {
         Scanner scanner = new Scanner(new File(path));
         while (scanner.hasNext())
         {
-            Student student = new Student().readStudent(path,scanner);
+            Student student = new Student().readStudent(path, scanner);
             map.put(student.getId(), student);
         }
+    }
+
+    public void write(String path) throws Exception
+    {
+
+        Iterator<String> it = map.keySet().iterator();
+        FileWriter fileWriter = new FileWriter(new File(path));
+        while (it.hasNext())
+        {
+            String key = it.next();
+            fileWriter.write(map.get(key).toString());
+        }
+        fileWriter.close();
     }
 }

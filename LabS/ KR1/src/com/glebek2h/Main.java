@@ -37,6 +37,7 @@ public class Main
             classBD.removeUncorrect();
             System.out.println(":)");
             System.out.println(classBD);
+            classBD.write("rezult2.txt");
         } catch (Exception e)
         {
             System.out.println("Something wrong)");
