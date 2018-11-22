@@ -16,7 +16,7 @@ public class Student
     private String name;
     private String patronymic;
     private double averageMark;
-    private double id;
+    private String id;
 
     @Override
     public String toString()
@@ -29,17 +29,14 @@ public class Student
                 ", id=" + id +
                 '}'+'\n';
     }
-    public boolean isNeedDeleteStudent()
-    {
-        Pattern pattern = Pattern.compile("[^A-Z|a-z|А-Я|а-я]");
-        Matcher matcher = pattern.matcher(surname);
-        if(matcher.find())
-           return false;
-        return true;
-    }
-    public double getId()
+    public String getId()
     {
         return id;
+    }
+
+    public String getSurname()
+    {
+        return surname;
     }
 
     public Student readStudent(String path, Scanner scanner) throws Exception
@@ -49,7 +46,7 @@ public class Student
         name = strings[1];
         patronymic = strings[2];
         averageMark = Double.parseDouble(strings[3]);
-        id = Double.parseDouble(strings[4]);
+        id = strings[4];
         return this;
     }
 }

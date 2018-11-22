@@ -1,10 +1,7 @@
 package com.glebek2h;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 /**
  * KR1
@@ -13,27 +10,28 @@ import java.util.Set;
 
 public class ClassBD
 {
-    Map<Double, Student> map;
+    Map<String, Student> map;
 
     public ClassBD()
     {
-        map = new HashMap<Double, Student>()
+        map = new HashMap<String, Student>()
         {
             @Override
             public String toString()
             {
                 StringBuilder string = new StringBuilder();
-                map.forEach((k, v) -> string.append("key: ").append(k).append(" value:").append(v));//System.out.println("key: " + k + " value:" + v)
+                map.forEach((k, v) -> string.append("key: ").append(k).append(" value:").append(v));
                 return string.toString();
             }
         };
     }
     public void removeUncorrect()
     {
-        for(Map.Entry entry: map.entrySet()) {
-            //получить ключ
-            if (map.get(entry.getKey()).isNeedDeleteStudent())
-                map.remove(entry.getKey());
+        Iterator<String> it = map.keySet().iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            if (map.get(key).getSurname().matches(".*[1-9].*"))
+                it.remove();
         }
     }
 
