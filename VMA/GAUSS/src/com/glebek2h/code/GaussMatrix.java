@@ -204,8 +204,8 @@ public class GaussMatrix
         System.out.println("A :");
         printMatrix(A.matrix);
 
-       // double[][] column = { {1,0,0,0,0}, {0,1,0,0,0},{0,0,1,0,0},{0,0,0,1,0},{0,0,0,0,1}};
-        double [][]column = {{1,0,0},{0,1,0},{0,0,1}};
+        double[][] column = { {1,0,0,0,0}, {0,1,0,0,0},{0,0,1,0,0},{0,0,0,1,0},{0,0,0,0,1}};
+        //double [][]column = {{1,0,0},{0,1,0},{0,0,1}};
 
         GaussMatrix [] gaussMatrices = new GaussMatrix[column.length];
         for (int i = 0; i < gaussMatrices.length; i++)
@@ -341,7 +341,7 @@ public class GaussMatrix
                         0.0364, -0.0546, 0.2639, -0.0218, 0.7644, 3.9239,
                 };
         double [] arr2 = {1,2,3,4,2,1,-1,-2,3,-1,5,1};
-
+        double[][] initiala = {{1,3,1,4},{2,4,1,1},{3,5,4,2},{4,3,1,2}};
 
         gaussMatrix.setMatrix(arr2);
         GaussMatrix initialMatrix = new GaussMatrix(3, 4);
