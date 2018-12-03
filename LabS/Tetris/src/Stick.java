@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Tetris
  * Created by fpm.kazachin on 01.12.2018 23:11
@@ -52,5 +54,37 @@ public class Stick
                 }
             }
         }
+    }
+    public void move(boolean left,boolean right)
+    {
+        for (int i = 0; i < SIZE; i++)
+        {
+            y[i] += 16;
+        }
+        if (left)
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                x[i] -= 16;
+            }
+        }
+        if (right)
+        {
+            for (int i = 0; i < SIZE; i++)
+            {
+                x[i] += 16;
+            }
+        }
+    }
+
+    public int[] getY()
+    {
+        return y;
+    }
+
+    public int[] getX()
+    {
+
+        return x;
     }
 }
