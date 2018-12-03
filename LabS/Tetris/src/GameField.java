@@ -34,12 +34,12 @@ public class GameField extends JPanel implements ActionListener
     private boolean right;
     private boolean getEnd;
     private boolean gameOver;
-    private int count = 0;
-    private int globalCount = 0;
-    private int checkY = 304;
+    private int count = 1;
+    private int globalCount = 1;
 
     Stick stick;
     LetterG letterG;
+    LetterL letterL;
     public GameField()
     {
 
@@ -65,12 +65,6 @@ public class GameField extends JPanel implements ActionListener
     {
         System.out.println("GLOBAL_COUNT" + globalCount);
         countSquares = 5;
-        //160+16+16
-        /*for (int i = 0; i < countSquares; i++)
-        {
-            squaresX[i] = 176 - i * PIXEL_SIZE;
-            squaresY[i] = 48;
-        }*/
         stick = new Stick();
         timer = new Timer(300, this);
         timer.start();
@@ -78,24 +72,33 @@ public class GameField extends JPanel implements ActionListener
 
     public void move()
     {
-        if(globalCount%2 ==0)
-        stick.move(left,right);
-        else
-            letterG.move(left,right);
+
+        if (globalCount == 1)
+            stick.move(left, right);
+        if (globalCount == 2)
+            letterG.move(left, right);
+        if (globalCount == 3)
+            letterL.move(left, right);
+
         right = false;
         left = false;
     }
     public void check()
     {
-        if(globalCount%2==0)
+        if(globalCount == 1)
         {
             squaresY = stick.getY();
             squaresX = stick.getX();
         }
-        else
+        if(globalCount == 2)
         {
             squaresY = letterG.getY();
             squaresX = letterG.getX();
+        }
+        if(globalCount == 3)
+        {
+            squaresY = letterL.getY();
+            squaresX = letterL.getX();
         }
 
         for (int count = 0; count < arrayY.size(); count++)
@@ -140,7 +143,6 @@ public class GameField extends JPanel implements ActionListener
         {
             for (int i = 0; i < arrayY.size(); i++)
             {
-
                 int temp[] = new int[countSquares];
                 for (int j = 0; j < countSquares; j++)
                 {
@@ -149,38 +151,58 @@ public class GameField extends JPanel implements ActionListener
                 arrayY.set(i, temp);
             }
         }
-
     }
      public void turn(int k)
      {
-         if (globalCount % 2 == 0)
+         if (globalCount == 1)
              stick.turn(k);
-         else
+         if (globalCount == 2)
              letterG.turn(k);
+         if (globalCount == 3)
+             letterL.turn(k);
      }
     public void addNewFigure()
     {
-        if (globalCount % 2 == 0)
-        {
-            arrayY.add(Arrays.copyOf(stick.getY(), countSquares));
-            arrayX.add(Arrays.copyOf(stick.getX(), countSquares));
-        } else
-        {
-            arrayY.add(Arrays.copyOf(letterG.getY(), countSquares));
-            arrayX.add(Arrays.copyOf(letterG.getX(), countSquares));
 
-        }
-        arrayY.add(Arrays.copyOf(stick.getY(), countSquares));
-        arrayX.add(Arrays.copyOf(stick.getX(), countSquares));
+        arrayY.add(Arrays.copyOf(squaresY, countSquares));
+        arrayX.add(Arrays.copyOf(squaresX, countSquares));
         globalCount++;
-        if (globalCount % 2 == 0)
+        if(globalCount == 4)
+        globalCount = 1;
+        if (globalCount == 1)
+        {
             stick = new Stick();
-        else
+        }
+        if (globalCount == 2)
+        {
             letterG = new LetterG();
+        }
+        if (globalCount == 3)
+        {
+            letterL = new LetterL();
+        }
 
-        count = 0;
 
+        count = 1;
         getEnd = false;
+    }
+    public void setArrays()
+    {
+        if(globalCount == 1)
+        {
+            squaresY = stick.getY();
+            squaresX = stick.getX();
+        }
+        if(globalCount == 2)
+        {
+            squaresY = letterG.getY();
+            squaresX = letterG.getX();
+        }
+        if(globalCount == 3)
+        {
+            squaresY = letterL.getY();
+            squaresX = letterL.getX();
+        }
     }
     @Override
     public void actionPerformed(ActionEvent e)
@@ -189,14 +211,13 @@ public class GameField extends JPanel implements ActionListener
             {
                 check();
                 move();
-                repaint();
+                setArrays();
             }
             else if(gameOver == false)
             {
-                repaint();
                 addNewFigure();
             }
-
+        repaint();
     }
     @Override
     protected void paintComponent(Graphics g)
@@ -204,24 +225,26 @@ public class GameField extends JPanel implements ActionListener
         super.paintComponent(g);
         if(gameOver == false)
         {
-            int[] squaresY = new int[countSquares] ;
-            int[] squaresX  = new int[countSquares] ;
-            if (globalCount % 2 == 0)
+            if (globalCount == 1)
             {
                 squaresY = stick.getY();
                 squaresX = stick.getX();
             }
-            else if(globalCount!=0)
+            if(globalCount == 2)
             {
                 squaresY = letterG.getY();
                 squaresX = letterG.getX();
+            }
+            if(globalCount == 3)
+            {
+                squaresY = letterL.getY();
+                squaresX = letterL.getX();
             }
             g.drawImage(back, 0, 0, this);
             for (int i = 0; i < countSquares; i++)
             {
                 g.drawImage(square, squaresX[i], squaresY[i], this);
             }
-
             for (int i = 0; i < arrayY.size(); i++)
             {
                 for (int j = 0; j < countSquares; j++)
@@ -253,6 +276,8 @@ public class GameField extends JPanel implements ActionListener
             {
                 turn(count);
                 count++;
+                if(count == 5)
+                    count = 1;
             }
         }
     }

@@ -27,7 +27,7 @@ public class Stick
         {
             if (i < SIZE / 2)
             {
-                if (k % 2 == 0)
+                if (k % 2 == 1)
                 {
                     x[i] -= count * 16;
                     y[i] += count * 16;
@@ -41,7 +41,7 @@ public class Stick
             }
             if (i > SIZE / 2)
             {
-                if (k % 2 == 0)
+                if (k % 2 == 1)
                 {
                     count++;
                     x[i] += count * 16;
