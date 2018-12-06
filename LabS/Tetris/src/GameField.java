@@ -39,6 +39,8 @@ public class GameField extends JPanel implements ActionListener
     private ArrayList<ArrayList<Integer>> arrayY;
     private ArrayList<Image> arrayImages;
     private int NUM = 0;
+    public static int Num = 1;
+    public static int score = 0;
 
     private int countSquares;
     private Timer timer;
@@ -97,7 +99,6 @@ public class GameField extends JPanel implements ActionListener
         addKeyListener(new FieldKeyListener());
         setFocusable(true);
     }
-
     public void initGame()
     {
         countSquares = 5;
@@ -160,6 +161,8 @@ public class GameField extends JPanel implements ActionListener
             }
             if (count1 >= 20)
             {
+                score+=100;
+
                 //удаляем
                 for (int k = 0; k < arrayY.size(); k++)
                 {
@@ -183,6 +186,7 @@ public class GameField extends JPanel implements ActionListener
                         arrayY.get(k).set(j, arrayY.get(k).get(j) + 16);
                     }
                 }
+
             }
             y -= 16;
         }
@@ -218,6 +222,7 @@ public class GameField extends JPanel implements ActionListener
         }
         System.out.println();
         globalCount++;
+        Num++;
         if(globalCount == 4)
         globalCount = 1;
         if (globalCount == 1)
