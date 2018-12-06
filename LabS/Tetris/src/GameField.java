@@ -27,6 +27,9 @@ public class GameField extends JPanel implements ActionListener
     private Image square5;
     private Image square6;
     private Image square7;
+    private Image square8;
+    private Image square9;
+    private Image square10;
     private Image back;
     private Image gameover;
     private Image [] Images;
@@ -55,6 +58,8 @@ public class GameField extends JPanel implements ActionListener
     Stick stick;
     LetterG letterG;
     LetterL letterL;
+    LetterZ letterZ;
+    LetterT letterT;
     public GameField()
     {
 
@@ -87,13 +92,22 @@ public class GameField extends JPanel implements ActionListener
         ImageIcon ImageIconSquare7 = new ImageIcon("square7.png");
         square7 = ImageIconSquare7.getImage();
 
+        ImageIcon ImageIconSquare8 = new ImageIcon("square8.png");
+        square8 = ImageIconSquare8.getImage();
+
+        ImageIcon ImageIconSquare9 = new ImageIcon("square9.png");
+        square9 = ImageIconSquare9.getImage();
+
+        ImageIcon ImageIconSquare10 = new ImageIcon("square10.png");
+        square10 = ImageIconSquare10.getImage();
+
         ImageIcon ImageIconBack = new ImageIcon("back.png");
         back = ImageIconBack.getImage();
 
         ImageIcon ImageIconGameover = new ImageIcon("gameover.png");
         gameover = ImageIconGameover.getImage();
 
-        Images = new Image[]{square,square2,square3,square4,square5,square6,square7};
+        Images = new Image[]{square,square2,square3,square4,square5,square6,square7,square8,square9,square10};
 
         initGame();
         addKeyListener(new FieldKeyListener());
@@ -102,7 +116,7 @@ public class GameField extends JPanel implements ActionListener
     public void initGame()
     {
         countSquares = 5;
-        image = Images[new Random().nextInt(7)];
+        image = Images[new Random().nextInt(10)];
         arrayImages.add(image);
         stick = new Stick();
         timer = new Timer(300, this);
@@ -118,6 +132,10 @@ public class GameField extends JPanel implements ActionListener
             letterG.move(left, right,down);
         if (globalCount == 3)
             letterL.move(left, right,down);
+        if (globalCount == 4)
+            letterZ.move(left, right,down);
+        if (globalCount == 5)
+            letterT.move(left, right,down);
 
         right = false;
         left = false;
@@ -206,6 +224,10 @@ public class GameField extends JPanel implements ActionListener
              letterG.turn(k);
          if (globalCount == 3)
              letterL.turn(k);
+         if (globalCount == 4)
+             letterZ.turn(k);
+         if (globalCount == 5)
+             letterT.turn(k);
      }
     public void addNewFigure()
     {
@@ -223,21 +245,25 @@ public class GameField extends JPanel implements ActionListener
         System.out.println();
         globalCount++;
         Num++;
-        if(globalCount == 4)
+        if(globalCount == 6)
         globalCount = 1;
+
         if (globalCount == 1)
-        {
             stick = new Stick();
-        }
+
         if (globalCount == 2)
-        {
             letterG = new LetterG();
-        }
+
         if (globalCount == 3)
-        {
             letterL = new LetterL();
-        }
-        image = Images[new Random().nextInt(7)];
+
+        if (globalCount == 4)
+            letterZ = new LetterZ();
+
+        if (globalCount == 5)
+            letterT = new LetterT();
+
+        image = Images[new Random().nextInt(10)];
         arrayImages.add(image);
 
         count = 1;
@@ -260,6 +286,16 @@ public class GameField extends JPanel implements ActionListener
         {
             squaresY = letterL.getY();
             squaresX = letterL.getX();
+        }
+        if(globalCount == 4)
+        {
+            squaresY = letterZ.getY();
+            squaresX = letterZ.getX();
+        }
+        if(globalCount == 5)
+        {
+            squaresY = letterT.getY();
+            squaresX = letterT.getX();
         }
     }
     @Override
