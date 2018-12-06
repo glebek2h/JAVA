@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -77,14 +78,24 @@ public class Stick
         }
     }
 
-    public int[] getY()
+    public static ArrayList<Integer> toArayList(int[] arr)
     {
-        return y;
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++)
+        {
+            arrayList.add(arr[i]);
+        }
+        return arrayList;
     }
 
-    public int[] getX()
+    public ArrayList<Integer> getY()
+    {
+        return toArayList(y);
+    }
+
+    public ArrayList<Integer> getX()
     {
 
-        return x;
+        return toArayList(x);
     }
 }

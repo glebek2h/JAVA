@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Tetris
  * Created by fpm.kazachin on 03.12.2018 9:28
@@ -8,6 +10,7 @@ public class LetterL
     private int[] x;
     private int[] y;
     private final int SIZE = 5;
+
     public LetterL()
     {
         x = new int[SIZE];
@@ -27,9 +30,10 @@ public class LetterL
         x[4] = 144;
         y[4] = 80;
     }
+
     public void turn(int k)
     {
-        if(k == 1)
+        if (k == 1)
         {
             y[0] += 32;
             x[0] -= 32;
@@ -44,7 +48,7 @@ public class LetterL
             x[4] -= 32;
             y[4] -= 32;
         }
-        if(k == 2)
+        if (k == 2)
         {
             y[0] -= 32;
             x[0] -= 32;
@@ -58,7 +62,7 @@ public class LetterL
             x[4] += 32;
             y[4] -= 32;
         }
-        if(k == 3)
+        if (k == 3)
         {
             y[0] -= 32;
             x[0] += 32;
@@ -72,7 +76,7 @@ public class LetterL
             x[4] += 32;
             y[4] += 32;
         }
-        if(k == 4)
+        if (k == 4)
         {
             y[0] += 32;
             x[0] += 32;
@@ -87,7 +91,8 @@ public class LetterL
             y[4] += 32;
         }
     }
-    public void move(boolean left,boolean right)
+
+    public void move(boolean left, boolean right)
     {
         for (int i = 0; i < SIZE; i++)
         {
@@ -109,14 +114,24 @@ public class LetterL
         }
     }
 
-    public int[] getY()
+    public static ArrayList<Integer> toArayList(int[] arr)
     {
-        return y;
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++)
+        {
+            arrayList.add(arr[i]);
+        }
+        return arrayList;
     }
 
-    public int[] getX()
+    public ArrayList<Integer> getY()
+    {
+        return toArayList(y);
+    }
+
+    public ArrayList<Integer> getX()
     {
 
-        return x;
+        return toArayList(x);
     }
 }

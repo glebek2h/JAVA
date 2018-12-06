@@ -12,7 +12,7 @@ public class MainWindow extends JFrame
     {
         setTitle("Tetris");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(320,345);
+        setSize(320,342);
         setLocation(400,400);
         add(new GameField());
         setVisible(true);

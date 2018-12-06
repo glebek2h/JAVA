@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Tetris
  * Created by fpm.kazachin on 03.12.2018 9:00
@@ -97,15 +99,24 @@ public class LetterG
             }
         }
     }
-
-    public int[] getY()
+    public static ArrayList<Integer> toArayList(int[] arr)
     {
-        return y;
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++)
+        {
+            arrayList.add(arr[i]);
+        }
+        return arrayList;
     }
 
-    public int[] getX()
+    public ArrayList<Integer> getY()
+    {
+        return toArayList(y);
+    }
+
+    public ArrayList<Integer> getX()
     {
 
-        return x;
+        return toArayList(x);
     }
 }
