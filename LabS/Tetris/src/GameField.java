@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Tetris
@@ -20,14 +21,23 @@ public class GameField extends JPanel implements ActionListener
     private final int TOTAL_PIXELS = 400;
     private final int MAX_SQUARES = 5;
     private Image square;
+    private Image square2;
+    private Image square3;
+    private Image square4;
+    private Image square5;
+    private Image square6;
+    private Image square7;
     private Image back;
     private Image gameover;
+    private Image [] Images;
+    private Image image;
 
     private ArrayList<Integer> squaresX;
     private ArrayList<Integer> squaresY;
 
     private ArrayList<ArrayList<Integer>> arrayX;
     private ArrayList<ArrayList<Integer>> arrayY;
+    private ArrayList<Image> arrayImages;
     private int NUM = 0;
 
     private int countSquares;
@@ -52,12 +62,36 @@ public class GameField extends JPanel implements ActionListener
         squaresX = new ArrayList<>();
         squaresY = new ArrayList<>();
 
+        arrayImages = new ArrayList<>();
+
         ImageIcon ImageIconSquare = new ImageIcon("square.png");
         square = ImageIconSquare.getImage();
+
+        ImageIcon ImageIconSquare2 = new ImageIcon("square2.png");
+        square2 = ImageIconSquare2.getImage();
+
+        ImageIcon ImageIconSquare3 = new ImageIcon("square3.png");
+        square3 = ImageIconSquare3.getImage();
+
+        ImageIcon ImageIconSquare4 = new ImageIcon("square4.png");
+        square4 = ImageIconSquare4.getImage();
+
+        ImageIcon ImageIconSquare5 = new ImageIcon("square5.png");
+        square5 = ImageIconSquare5.getImage();
+
+        ImageIcon ImageIconSquare6 = new ImageIcon("square6.png");
+        square6 = ImageIconSquare6.getImage();
+
+        ImageIcon ImageIconSquare7 = new ImageIcon("square7.png");
+        square7 = ImageIconSquare7.getImage();
+
         ImageIcon ImageIconBack = new ImageIcon("back.png");
         back = ImageIconBack.getImage();
+
         ImageIcon ImageIconGameover = new ImageIcon("gameover.png");
         gameover = ImageIconGameover.getImage();
+
+        Images = new Image[]{square,square2,square3,square4,square5,square6,square7};
 
         initGame();
         addKeyListener(new FieldKeyListener());
@@ -67,8 +101,10 @@ public class GameField extends JPanel implements ActionListener
     public void initGame()
     {
         countSquares = 5;
+        image = Images[new Random().nextInt(7)];
+        arrayImages.add(image);
         stick = new Stick();
-        timer = new Timer(600, this);
+        timer = new Timer(300, this);
         timer.start();
     }
 
@@ -76,11 +112,11 @@ public class GameField extends JPanel implements ActionListener
     {
 
         if (globalCount == 1)
-            stick.move(left, right);
+            stick.move(left, right,down);
         if (globalCount == 2)
-            letterG.move(left, right);
+            letterG.move(left, right,down);
         if (globalCount == 3)
-            letterL.move(left, right);
+            letterL.move(left, right,down);
 
         right = false;
         left = false;
@@ -196,7 +232,8 @@ public class GameField extends JPanel implements ActionListener
         {
             letterL = new LetterL();
         }
-
+        image = Images[new Random().nextInt(7)];
+        arrayImages.add(image);
 
         count = 1;
         getEnd = false;
@@ -241,23 +278,26 @@ public class GameField extends JPanel implements ActionListener
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if(gameOver == false)
+
+
+        setArrays();
+        g.drawImage(back, 0, 0, this);
+        for (int i = 0; i < countSquares; i++)
         {
-            setArrays();
-            g.drawImage(back, 0, 0, this);
-            for (int i = 0; i < countSquares; i++)
+            g.drawImage(image, squaresX.get(i), squaresY.get(i), this);
+        }
+        for (int i = 0; i < arrayY.size(); i++)
+        {
+            for (int j = 0; j < arrayY.get(i).size(); j++)
             {
-                g.drawImage(square, squaresX.get(i), squaresY.get(i), this);
-            }
-            for (int i = 0; i < arrayY.size(); i++)
-            {
-                for (int j = 0; j < arrayY.get(i).size(); j++)
-                {
-                    g.drawImage(square, arrayX.get(i).get(j), arrayY.get(i).get(j), this);
-                }
+                g.drawImage(arrayImages.get(i), arrayX.get(i).get(j), arrayY.get(i).get(j), this);
             }
         }
-        else g.drawImage(gameover, 0, 0, this);
+        if (gameOver == true)
+        {
+            //g.drawString("GAME OVER!",115,32);
+            g.drawImage(gameover, 110, 32,80,80, this);
+        }
     }
     class FieldKeyListener extends KeyAdapter
     {
@@ -283,10 +323,10 @@ public class GameField extends JPanel implements ActionListener
                 if(count == 5)
                     count = 1;
             }
-            /*if(key == KeyEvent.VK_DOWN)
+            if(key == KeyEvent.VK_DOWN)
             {
                 down = true;
-            }*/
+            }
 
         }
     }

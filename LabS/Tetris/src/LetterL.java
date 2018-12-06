@@ -92,26 +92,31 @@ public class LetterL
         }
     }
 
-    public void move(boolean left, boolean right)
+    public void move(boolean left, boolean right,boolean down)
     {
         for (int i = 0; i < SIZE; i++)
         {
             y[i] += 16;
         }
-        if (left)
+        if (left && x[0] != 0 && x[x.length - 1] != 0)
         {
             for (int i = 0; i < SIZE; i++)
             {
                 x[i] -= 16;
             }
         }
-        if (right)
+        if (right && x[0] != 304 && x[x.length - 1] != 304)
         {
             for (int i = 0; i < SIZE; i++)
             {
                 x[i] += 16;
             }
         }
+        if (down && y[0] != 304 && y[y.length - 1] != 304)
+            for (int i = 0; i < SIZE; i++)
+            {
+                y[i] += 16;
+            }
     }
 
     public static ArrayList<Integer> toArayList(int[] arr)
